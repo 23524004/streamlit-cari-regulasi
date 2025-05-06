@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d7" for="edge" attr.name="weight" attr.type="double"/>
+<key id="d6" for="edge" attr.name="relation" attr.type="string"/>
+<key id="d5" for="node" attr.name="isi" attr.type="string"/>
+<key id="d4" for="node" attr.name="tipeBagian" attr.type="string"/>
+<key id="d3" for="node" attr.name="versiDokumen" attr.type="string"/>
+<key id="d2" for="node" attr.name="tahunPeraturan" attr.type="long"/>
+<key id="d1" for="node" attr.name="nomorPeraturan" attr.type="long"/>
+<key id="d0" for="node" attr.name="jenisPeraturan" attr.type="string"/>
+<graph edgedefault="directed"><node id="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1">
+  <data key="d0">perbpjsk</data>
+  <data key="d1">1</data>
+  <data key="d2">2014</data>
+  <data key="d3">orisinal</data>
+  <data key="d4">Pasal 1 - Huruf 1</data>
+  <data key="d5">Dalam Peraturan Badan Penyelenggara Jaminan Sosial Kesehatan ini, yang dimaksud dengan: Jaminan Kesehatan adalah jaminan berupa perlindungan kesehatan agar peserta memperoleh manfaat pemeliharaan kesehatan dan perlindungan dalam memenuhi kebutuhan dasar kesehatan yang diberikan kepada setiap orang yang telah membayar iuran atau iurannya dibayar oleh pemerintah.</data>
+</node>
+<node id="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1">
+  <data key="d0">perbpjsk</data>
+  <data key="d1">6</data>
+  <data key="d2">2018</data>
+  <data key="d3">orisinal</data>
+  <data key="d4">Pasal 1 - Huruf 1</data>
+  <data key="d5">Dalam Peraturan Badan ini yang dimaksud dengan: Jaminan Kesehatan adalah jaminan berupa perlindungan kesehatan agar Peserta memperoleh manfaat pemeliharaan kesehatan dan perlindungan dalam memenuhi kebutuhan dasar kesehatan yang diberikan kepada setiap orang yang telah membayar Iuran Jaminan Kesehatan atau Iuran Jaminan Kesehatannya dibayar oleh Pemerintah Pusat atau Pemerintah Daerah.</data>
+</node>
+<node id="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2">
+  <data key="d0">perbpjsk</data>
+  <data key="d1">1</data>
+  <data key="d2">2014</data>
+  <data key="d3">orisinal</data>
+  <data key="d4">Pasal 1 - Huruf 2</data>
+  <data key="d5">Dalam Peraturan Badan Penyelenggara Jaminan Sosial Kesehatan ini, yang dimaksud dengan: Badan Penyelenggara Jaminan Sosial Kesehatan yang selanjutnya disebut BPJS Kesehatan adalah badan hukum yang dibentuk untuk menyelenggarakan program Jaminan Kesehatan.</data>
+</node>
+<node id="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3">
+  <data key="d0">perbpjsk</data>
+  <data key="d1">1</data>
+  <data key="d2">2014</data>
+  <data key="d3">orisinal</data>
+  <data key="d4">Pasal 1 - Huruf 3</data>
+  <data key="d5">Dalam Peraturan Badan Penyelenggara Jaminan Sosial Kesehatan ini, yang dimaksud dengan: Peserta adalah setiap orang, termasuk orang asing yang bekerja paling singkat 6 (enam) bulan di Indonesia, yang telah membayar iuran. www.djpp.kemenkumham.go.id 2014, No.1 3</data>
+</node>
+<node id="NODE GA JELAS">
+  <data key="d0">perbpjsk</data>
+  <data key="d1">1</data>
+  <data key="d2">2014</data>
+  <data key="d3">orisinal</data>
+  <data key="d4">Pasal 1 - Huruf 3</data>
+  <data key="d5">NODE GA JELAS</data>
+</node>
+<node id="BPJS Kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">ORG</data>
+</node>
+<node id="Jaminan Kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="perlindungan kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="manfaat pemeliharaan kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="kebutuhan dasar kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="Badan Penyelenggara Jaminan Sosial Kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="perLINdungaN Kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="Peserta">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="orang asing">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="iuran Jaminan Kesehatan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">CONCEPT</data>
+</node>
+<node id="6 (enam) bulan">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">DATE</data>
+</node>
+<node id="Indonesia">
+  <data key="d0">ENTITAS</data>
+  <data key="d3">GPE</data>
+</node>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="BPJS Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="Jaminan Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="perlindungan kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="manfaat pemeliharaan kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="kebutuhan dasar kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1" target="perLINdungaN Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1" target="Jaminan Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="BPJS Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="Badan Penyelenggara Jaminan Sosial Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="Jaminan Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="PERBPJSK No. 6 Tahun 2018 - Pasal 1 - Huruf 1">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="BPJS Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">0.3333333333333333</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="Peserta">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="orang asing">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="iuran Jaminan Kesehatan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="6 (enam) bulan">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="Indonesia">
+  <data key="d6">appear</data>
+  <data key="d7">1.0</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 1">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+<edge source="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 3" target="PERBPJSK No. 1 Tahun 2014 - Pasal 1 - Huruf 2">
+  <data key="d6">miripDengan</data>
+  <data key="d7">0.6666666666666666</data>
+</edge>
+</graph></graphml>
