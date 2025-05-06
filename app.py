@@ -1,6 +1,7 @@
 import streamlit as st
 import sys
 import os
+import time
 import networkx as nx
 
 # Add the src folder to sys.path
@@ -46,7 +47,7 @@ def format_results_for_display(results):
     """Format the traversal results for displaying in Streamlit"""
     formatted_results = []
     seen_results = set()
-    
+
     for result in results:
         from_node = result.get('from_node', 'Unknown')
         to_node = result.get('to_node', 'Unknown')
@@ -64,7 +65,7 @@ def format_results_for_display(results):
             </div>
         </div>
         """
-        
+
         # Only unique result
         if formatted_result not in seen_results:
             formatted_results.append(formatted_result)
@@ -72,7 +73,7 @@ def format_results_for_display(results):
 
     return formatted_results
 
-# Streamlit layout
+# Streamlit layout and custom styles
 st.markdown("""
     <style>
         body {
@@ -110,6 +111,18 @@ st.markdown("""
             width: 100%;
             height: 60px;
         }
+        .info-box {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-left: 6px solid #4CAF50;
+            margin-bottom: 20px;
+            border-radius: 6px;
+        }
+        .info-item {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -117,16 +130,37 @@ st.markdown("""
 st.markdown('<div class="header">PENCARIAN REGULASI</div>', unsafe_allow_html=True)
 
 # Text input for search query
-search_query = st.text_input("", "", key="search", placeholder="Type your query and press Enter (iuran, peserta, bpjs kesehatan)", help="Start typing to search...", max_chars=25)
+search_query = st.text_input(
+    "",
+    "",
+    key="search",
+    placeholder="Type your query and press Enter (iuran, peserta, bpjs kesehatan)",
+    help="Start typing to search...",
+    max_chars=25
+)
 
 # If the user has entered a query, perform the search
 if search_query:
     with st.spinner("Searching..."):
+        start_time = time.time()
+
         # Get search results from the cached search function
         results = perform_search_cached(search_query)
 
-        # Format the results for display
+        end_time = time.time()
+        execution_time = end_time - start_time
+
+        # Format the results for display (unique results)
         formatted_results = format_results_for_display(results)
+        result_count = len(formatted_results)
+
+        # Display execution time and result count
+        st.markdown(f"""
+            <div class="info-box">
+                <div class="info-item"><strong>Execution Time:</strong> {execution_time:.2f} seconds</div>
+                <div class="info-item"><strong>Results Found:</strong> {result_count}</div>
+            </div>
+        """, unsafe_allow_html=True)
 
         # Display the results in Streamlit
         if formatted_results:
