@@ -1,23 +1,31 @@
 import streamlit as st
 import sys
 import os
+import networkx as nx
 
 # Add the src folder to sys.path
 sys.path.append(os.path.join(os.getcwd(), 'src'))  # Make sure 'src' folder is in sys.path
 
 # Now import GraphTraversal from query.py in src/
 from query import GraphTraversal
-import networkx as nx
 
 # Path to the graph file
 GRAPH_FILE_PATH = 'dataset/final_graph.graphml'
 
-def perform_search(query):
-    # Load the graph
-    graph = nx.read_graphml(GRAPH_FILE_PATH)
+# Cache the graph loading process so it is only loaded once unless the graph file changes
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def load_graph():
+    """Load the graph from the file."""
+    return nx.read_graphml(GRAPH_FILE_PATH)
+
+# Cache the search results, so identical queries get the same results
+@st.cache_data(ttl=3600)  # Cache for 1 hour
+def perform_search_cached(query):
+    """Search the graph with the query and return the results."""
+    graph = load_graph()  # Use cached graph
     if graph is None or len(graph.nodes) == 0:
         st.error("Graph file could not be loaded or is empty.")
-        return
+        return []
 
     # Define traversal parameters
     similarity_threshold = 0.1
@@ -32,7 +40,6 @@ def perform_search(query):
     # Step 2: Perform the graph traversal starting from the initial nodes
     results = traversal.traverse(initial_nodes)
 
-    # Return results
     return results
 
 def format_results_for_display(results):
@@ -84,19 +91,6 @@ st.markdown("""
             color: #4CAF50;
             margin-bottom: 8px;
         }
-        .result-body {
-            font-size: 16px;
-            margin: 10px 0;
-            color: #555;
-        }
-        .similarity-score {
-            color: #4CAF50;
-            font-weight: bold;
-        }
-        .relation {
-            font-style: italic;
-            color: #777;
-        }
         .content {
             font-size: 14px;
             color: #333;
@@ -128,8 +122,8 @@ search_query = st.text_input("", "", key="search", placeholder="Type your query 
 # If the user has entered a query, perform the search
 if search_query:
     with st.spinner("Searching..."):
-        # Get search results from the graph traversal
-        results = perform_search(search_query)
+        # Get search results from the cached search function
+        results = perform_search_cached(search_query)
 
         # Format the results for display
         formatted_results = format_results_for_display(results)
