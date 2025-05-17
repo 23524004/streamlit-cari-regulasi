@@ -1,76 +1,68 @@
 import os
-import pytz
 import networkx as nx
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-from datetime import datetime
-# from nltk.tokenize import word_tokenize
-# from Sastrawi.StopWordRemover.StopWordRemoverFactory import StopWordRemoverFactory
-# from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 
 class GraphTraversal:
+    MAX_INITIAL_NODES = 15  # Konstan jumlah maksimal initial nodes yang akan diambil
+
     def __init__(self, graph, query, similarity_threshold, max_depth):
         self.graph = graph
         self.query = query
         self.similarity_threshold = similarity_threshold
         self.max_depth = max_depth
-        self.vectorizer = TfidfVectorizer()
-
-        # self.stopword_factory = StopWordRemoverFactory()
-        # self.stop_words = set(self.stopword_factory.get_stop_words())
-        # self.stemmer_factory = StemmerFactory()
-        # self.stemmer = self.stemmer_factory.create_stemmer()
 
     def preprocess_text(self, text):
-        return text.lower()  # Add additional preprocessing as needed
-
-    # def preprocess_text_indonesian(self, text: str) -> str:
-    #     """
-    #     Preprocesses text specifically for Indonesian legal documents.
-    #     """
-
-    #     # Step 1: Tokenization and stop word removal (Modified)
-    #     tokens = word_tokenize(text)
-    #     # Keep tokens that are not stop words and have more than 1 character
-    #     filtered_tokens = [w for w in tokens if w.lower() not in self.stop_words and len(w) > 1]
-
-    #     # Step 2: Stemming (Modified)
-    #     stemmed_tokens = [self.stemmer.stem(token) for token in filtered_tokens]
-
-    #     # Join the stemmed tokens back into a string
-    #     processed_text = " ".join(stemmed_tokens)
-
-    #     return processed_text
+        return text.lower()  # Mengubah teks menjadi huruf kecil
 
     def get_initial_nodes(self):
-        """Retrieve initial nodes based on similarity between query and 'isi'."""
+        """Retrieve initial nodes based on a simple substring match with a threshold."""
         print("Getting initial nodes...")
 
         node_similarities = []
 
-        # Iterate through all nodes to compute similarity with the query
+        # Menghitung kemiripan menggunakan pencocokan substring
         for node_id, node_data in self.graph.nodes(data=True):
-            if 'isi' in node_data and 'Pasal' in node_data['tipeBagian']:
+            if 'isi' in node_data:
                 isi = node_data['isi']
-                vectorized_text = self.vectorizer.fit_transform([self.preprocess_text(self.query), isi])
-                similarity = cosine_similarity(vectorized_text[0], vectorized_text[1])[0][0]
+                processed_query = self.preprocess_text(self.query)
+                processed_isi = self.preprocess_text(isi)
+
+                # Menggunakan metode substring matching sederhana
+                similarity = self.simple_substring_match(processed_query, processed_isi)
 
                 if similarity >= self.similarity_threshold:
                     node_similarities.append((node_id, similarity))
 
-        # Sort nodes by similarity in descending order
+        # Mengurutkan node berdasarkan kemiripan tertinggi
         node_similarities.sort(key=lambda x: x[1], reverse=True)
-        return node_similarities
+
+        # Hanya mengambil maksimal MAX_INITIAL_NODES node teratas
+        return node_similarities[:self.MAX_INITIAL_NODES]
+
+    def simple_substring_match(self, query, isi):
+        """Hitung kemiripan berdasarkan kesamaan substring."""
+        # Menggunakan pendekatan sederhana: hitung berapa banyak kata query ada dalam isi
+        query_words = set(query.split())
+        isi_words = set(isi.split())
+        
+        # Menghitung berapa banyak kata query yang ada dalam isi
+        common_words = query_words.intersection(isi_words)
+        
+        # Kemiripan dihitung sebagai rasio kata yang cocok
+        similarity = len(common_words) / len(query_words) if len(query_words) > 0 else 0
+        return similarity
 
     def traverse(self, initial_nodes):
         """Perform traversal to retrieve nodes up to a certain depth."""
         print("Traversing from initial nodes...")
 
         results = []
+        result_count = 0  # Track the number of results
+
         for initial_node, initial_similarity in initial_nodes:
             visited = set()
             queue = [(initial_node, 0)]  # (node, depth)
 
+            # Add initial node as the first result
             results.append({
                 "from_node": None,  # No parent for the initial node
                 "to_node": initial_node,
@@ -78,8 +70,13 @@ class GraphTraversal:
                 "similarity_score": initial_similarity,
                 "isi": self.graph.nodes[initial_node].get("isi", "")
             })
+            result_count += 1  # Increase the result count
 
-            while queue:
+            # Stop if we already have 15 results
+            if result_count >= 15:
+                break
+
+            while queue and result_count < 15:
                 current_node, depth = queue.pop(0)
 
                 if depth > self.max_depth:
@@ -105,7 +102,12 @@ class GraphTraversal:
                             "similarity_score": similarity_score,
                             "isi": self.graph.nodes[neighbor].get("isi", "")
                         })
+                        result_count += 1
                         queue.append((neighbor, depth + 1))
+
+                        # Stop if we already have 15 results
+                        if result_count >= 15:
+                            break
 
                     elif relation == "mengingat":
                         results.append({
@@ -114,6 +116,16 @@ class GraphTraversal:
                             "relation": relation,
                             "isi": None  # No content for 'mengingat' nodes
                         })
+                        result_count += 1
+                        queue.append((neighbor, depth + 1))
+
+                        # Stop if we already have 15 results
+                        if result_count >= 15:
+                            break
+
+                # If we have 15 results, break out of the loop
+                if result_count >= 15:
+                    break
 
         return results
 
@@ -151,13 +163,6 @@ class GraphTraversal:
                     grouped_results[source_node] = []
                 grouped_results[source_node].append(result)
 
-        # Group results by source node
-        # for result in results:
-        #     source_node = result["from_node"]
-        #     if source_node not in grouped_results:
-        #         grouped_results[source_node] = []
-        #     grouped_results[source_node].append(result)
-
         output_file_folder = os.path.join("results", output_file)
 
         print("Writing to output file...")
@@ -189,7 +194,6 @@ class GraphTraversal:
             for source_node, edges in grouped_results.items():
                 # Print the source node header
                 source_header = f"From Node: {source_node}\n"
-                # print(source_header)
                 f.write(source_header)
 
                 for edge in edges:
@@ -206,68 +210,4 @@ class GraphTraversal:
                         f"----------------------------------------\n"
                     )
 
-                    # print(edge_info)
                     f.write(edge_info)
-
-        # with open(output_file, "w", encoding="utf-8") as f:
-        #     for source_node, edges in grouped_results.items():
-        #         # Print the source node header
-        #         header = f"From Node: {source_node}\n"
-        #         print(header)
-        #         f.write(header)
-
-        #         for edge in edges:
-        #             # Print each edge under the same source node
-        #             relation = edge["relation"]
-        #             to_node = edge["to_node"]
-        #             similarity_score = edge.get("similarity_score", "N/A")
-        #             content = edge.get("isi", "N/A")
-
-        #             edge_info = (
-        #                 f"  To Node: {to_node}\n"
-        #                 f"  Relation: {relation}\n"
-        #                 f"  Similarity Score: {similarity_score:.2f}\n"
-        #                 f"  Content (Isi): {content}\n"
-        #                 f"----------------------------------------\n"
-        #             )
-
-        #             print(edge_info)
-        #             f.write(edge_info)
-
-# Example Usage
-# def main():
-#     # Load the graph (replace with your graphml file path)
-#     print("Reading the initial graph...")
-#     graph = nx.read_graphml("/content/drive/MyDrive/PROYEK PENERATAN TERAPAN/PPT K7/Dataset/kg_data_50_new_cont.graphml")
-
-#     # User-defined parameters
-#     query = str(input("Masukkan query Anda: "))
-
-#     similarity_threshold = 0.5
-#     max_depth = 3
-
-#     print("Doing graph traversal...")
-#     traversal = GraphTraversal(graph, query, similarity_threshold, max_depth)
-
-#     # Step 1: Get initial nodes
-#     initial_nodes = traversal.get_initial_nodes()
-
-#     print("Initial Nodes:")
-#     for node, sim in initial_nodes:
-#         print(f"Node: {node}, Similarity: {sim:.2f}")
-#     print("\n")
-
-#     # Step 2: Traverse the graph
-#     results = traversal.traverse(initial_nodes)
-
-#     # Step 3: Display results
-#     timezone = pytz.timezone('Asia/Jakarta')
-#     current_time = datetime.now(timezone)
-#     timestamp = current_time.strftime('%Y-%m-%d_%H-%M-%S')
-#     # traversal.display_results(results)
-#     traversal.display_results_grouped(results, f"Eksperimen1_result_50_{timestamp}.txt")
-
-#     print("Done!")
-
-# if __name__ == "__main__":
-#     main()
