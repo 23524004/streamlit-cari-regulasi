@@ -11,7 +11,7 @@ sys.path.append(os.path.join(os.getcwd(), 'src'))  # Make sure 'src' folder is i
 from query import GraphTraversal
 
 # Path to the graph file
-GRAPH_FILE_PATH = 'dataset/final_graph.graphml'
+GRAPH_FILE_PATH = 'dataset/vvvery_final.graphml'
 
 # Cache the graph loading process so it is only loaded once unless the graph file changes
 @st.cache_data(ttl=3600)  # Cache for 1 hour
