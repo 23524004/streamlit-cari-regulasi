@@ -2,7 +2,7 @@ import os
 import networkx as nx
 
 class GraphTraversal:
-    MAX_INITIAL_NODES = 5000  # Konstan jumlah maksimal initial nodes yang akan diambil
+    MAX_INITIAL_NODES = 15  # Konstan jumlah maksimal initial nodes yang akan diambil
 
     def __init__(self, graph, query, similarity_threshold, max_depth):
         self.graph = graph
@@ -73,10 +73,10 @@ class GraphTraversal:
             result_count += 1  # Increase the result count
 
             # Stop if we already have 15 results
-            if result_count >= 5000:
+            if result_count >= 15:
                 break
 
-            while queue and result_count < 5000:
+            while queue and result_count < 15:
                 current_node, depth = queue.pop(0)
 
                 if depth > self.max_depth:
@@ -106,7 +106,7 @@ class GraphTraversal:
                         queue.append((neighbor, depth + 1))
 
                         # Stop if we already have 15 results
-                        if result_count >= 5000:
+                        if result_count >= 15:
                             break
 
                     elif relation == "mengingat":
@@ -120,11 +120,11 @@ class GraphTraversal:
                         queue.append((neighbor, depth + 1))
 
                         # Stop if we already have 15 results
-                        if result_count >= 5000:
+                        if result_count >= 15:
                             break
 
                 # If we have 15 results, break out of the loop
-                if result_count >= 5000:
+                if result_count >= 15:
                     break
 
         return results
