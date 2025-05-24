@@ -2,7 +2,7 @@ import os
 import networkx as nx
 
 class GraphTraversal:
-    MAX_INITIAL_NODES = 15  # Konstan jumlah maksimal initial nodes yang akan diambil
+    MAX_INITIAL_NODES = 5000  # Konstan jumlah maksimal initial nodes yang akan diambil
 
     def __init__(self, graph, query, similarity_threshold, max_depth):
         self.graph = graph
