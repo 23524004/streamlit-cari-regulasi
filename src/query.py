@@ -73,10 +73,10 @@ class GraphTraversal:
             result_count += 1  # Increase the result count
 
             # Stop if we already have 15 results
-            if result_count >= MAX_INITIAL_NODES:
+            if result_count >= 5000:
                 break
 
-            while queue and result_count < MAX_INITIAL_NODES:
+            while queue and result_count < 5000:
                 current_node, depth = queue.pop(0)
 
                 if depth > self.max_depth:
@@ -106,7 +106,7 @@ class GraphTraversal:
                         queue.append((neighbor, depth + 1))
 
                         # Stop if we already have 15 results
-                        if result_count >= MAX_INITIAL_NODES:
+                        if result_count >= 5000:
                             break
 
                     elif relation == "mengingat":
@@ -120,11 +120,11 @@ class GraphTraversal:
                         queue.append((neighbor, depth + 1))
 
                         # Stop if we already have 15 results
-                        if result_count >= MAX_INITIAL_NODES:
+                        if result_count >= 5000:
                             break
 
                 # If we have 15 results, break out of the loop
-                if result_count >= MAX_INITIAL_NODES:
+                if result_count >= 5000:
                     break
 
         return results
